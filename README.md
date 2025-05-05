@@ -107,7 +107,7 @@ WHERE riesgo_fraude = 'Alto';
 ```
 #### 6.Obtener el registro completo de Monto Máximo solo para transacciones con riesgo “Alto”
 ```
-SELECT TOP 1 \*
+SELECT TOP 1 *
 
 FROM TransaccionesFraude
 
@@ -115,7 +115,7 @@ WHERE riesgo_fraude='Alto' ORDER BY monto DESC;
 ```
 #### 6.Mostrar el registro completo de la transacción con el mayor monto
 ```
-SELECT TOP 1 \*
+SELECT TOP 1 *
 
 FROM TransaccionesFraude
 
@@ -151,13 +151,13 @@ WHERE resultado_validacion = 'Aprobado';
 ```
 #### 11.Registro completo de Monto mínimo en transacciones con resultado 'Aprobado'
 ```
-SELECT TOP 1 \* FROM TransaccionesFraude
+SELECT TOP 1 * FROM TransaccionesFraude
 
 WHERE resultado_validacion = 'Aprobado' ORDER BY MONTO;
 ```
 #### 12\. Mostrar el registro completo de la transacción con el monto más bajo
 ```
-SELECT TOP 1 \*
+SELECT TOP 1 *
 
 FROM TransaccionesFraude
 
@@ -243,9 +243,7 @@ WHERE riesgo_fraude = 'Alto';
 ```
 #### 23\. Promedios mayores a $1.000.000
 ```
-SELECT
-
-canal,
+SELECT canal,
 
 AVG(monto) AS Promedio_Monto
 
@@ -257,13 +255,13 @@ HAVING AVG(monto) > 1000000;
 ```
 #### 24.Contar todas las transacciones
 ```
-SELECT COUNT(\*) AS Total_Transacciones
+SELECT COUNT(*) AS Total_Transacciones
 
 FROM TransaccionesFraude;
 ```
 #### 25.Contar transacciones por canal
 ```
-SELECT canal, COUNT(\*) AS Total_Por_Canal
+SELECT canal, COUNT(*) AS Total_Por_Canal
 
 FROM TransaccionesFraude
 
@@ -271,7 +269,7 @@ GROUP BY canal;
 ```
 #### 26.Contar transacciones por país
 ```
-SELECT pais, COUNT(\*) AS Total_Por_Pais
+SELECT pais, COUNT(*) AS Total_Por_Pais
 
 FROM TransaccionesFraude
 
@@ -279,7 +277,7 @@ GROUP BY pais;
 ```
 #### 27.Contar transacciones de riesgo “Alto”
 ```
-SELECT COUNT(\*) AS Total_Alto_Riesgo
+SELECT COUNT(*) AS Total_Alto_Riesgo
 
 FROM TransaccionesFraude
 
@@ -287,7 +285,7 @@ WHERE riesgo_fraude = 'Alto';
 ```
 #### 29.Cantidad de transacciones por resultado de validación
 ```
-SELECT resultado_validacion, COUNT(\*) AS Total_Por_Resultado
+SELECT resultado_validacion, COUNT(*) AS Total_Por_Resultado
 
 FROM TransaccionesFraude
 
@@ -295,11 +293,11 @@ GROUP BY resultado_validacion;
 ```
 #### 30\. Mostrar solo países con más de 2 transacciones (usando HAVING)
 ```
-SELECT pais, COUNT(\*) AS Total
+SELECT pais, COUNT(*) AS Total
 
 FROM TransaccionesFraude
 
 GROUP BY pais
 
-HAVING COUNT(\*) > 2;
+HAVING COUNT(*) > 2;
 ```
