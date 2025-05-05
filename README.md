@@ -1,4 +1,4 @@
-# **Explorando las funciones agregadas y Clausula Having**
+# **Explorando las Funciones Agregadas y Clausula Having**
 
 ### Funciones Agregadas (Aggregate Functions)
 
