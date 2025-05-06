@@ -294,10 +294,55 @@ GROUP BY resultado_validacion;
 #### 30\. Mostrar solo países con más de 2 transacciones (usando HAVING)
 ```
 SELECT pais, COUNT(*) AS Total
-
 FROM TransaccionesFraude
-
 GROUP BY pais
-
 HAVING COUNT(*) > 2;
+```
+
+
+## Clausula Having
+
+Se usa para filtrar resultados después de aplicar funciones agregadas (SUM(), AVG(), COUNT(), etc.).
+
+**Diferencia clave:**
+
+- WHERE filtra **antes** del GROUP BY (sobre filas individuales).
+- HAVING filtra **después** del GROUP BY (sobre resultados agregados).
+
+#### 31.Canales con promedio de transacciones mayor a $1.000.000
+```
+SELECT canal, AVG(monto) AS Promedio_Monto
+FROM TransaccionesFraude
+GROUP BY canal
+HAVING AVG(monto) > 1000000;
+```
+#### 32\. Países donde se hicieron más de 2 transacciones
+```
+SELECT pais, COUNT(*) AS Total_Transacciones
+FROM TransaccionesFraude
+GROUP BY pais
+HAVING COUNT(*) > 1;
+```
+#### 33\. Niveles de riesgo con una suma total mayor a $2.000.000
+```
+SELECT riesgo_fraude, SUM(monto) AS Total_Riesgo
+FROM TransaccionesFraude
+GROUP BY riesgo_fraude
+HAVING SUM(monto) > 2000000;
+```
+#### 34\. Mostrar países donde la transacción máxima supera $1.500.000
+```
+SELECT pais, MAX(monto) AS Monto_Maximo
+FROM TransaccionesFraude
+GROUP BY pais
+HAVING MAX(monto) > 1500000;
+```
+#### 35\. Formateado con HAVING (para visualización)
+```
+SELECT
+pais,
+'$' + FORMAT(SUM(monto), 'N2', 'es-CO') AS Total_Formateado
+FROM TransaccionesFraude
+GROUP BY pais
+HAVING SUM(monto) > 2000000;
 ```
