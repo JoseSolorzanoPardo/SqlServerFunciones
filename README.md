@@ -368,7 +368,7 @@ AS
 
 BEGIN
 
-\-- Código SQL aquí
+-- Código SQL aquí
 
 SELECT * FROM TransaccionesFraude;
 
