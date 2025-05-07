@@ -370,7 +370,7 @@ BEGIN
 
 \-- Código SQL aquí
 
-SELECT \* FROM TransaccionesFraude;
+SELECT * FROM TransaccionesFraude;
 
 END;
 ```
