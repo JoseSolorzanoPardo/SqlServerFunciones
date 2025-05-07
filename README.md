@@ -390,7 +390,7 @@ AS
 
 BEGIN
 
-\-- Código SQL aquí
+-- Código SQL aquí
 
 SELECT pais,riesgo_fraude, canal, '$'+ FORMAT(SUM(monto) , 'N0', 'es-CO') AS Sumatorio_monto FROM TransaccionesFraude
 
