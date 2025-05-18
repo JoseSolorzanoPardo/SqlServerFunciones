@@ -1,3 +1,5 @@
+--https://sqlfiddle.com/
+
 -- Tabla Clientes
 CREATE TABLE Clientes (
     ClienteID INT PRIMARY KEY,
