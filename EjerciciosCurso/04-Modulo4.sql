@@ -43,3 +43,72 @@ INSERT INTO Transacciones (TransaccionID, ClienteID, Fecha, Monto, Tipo, Canal) 
 (1014, 4, '2025-05-17 12:00:00', 10000.00, 'Pago', 'App'),
 (1015, 4, '2025-05-17 12:10:00', 20000.00, 'Pago', 'App'),
 (1016, 4, '2025-05-17 12:30:00', 15000.00, 'Consulta Saldo', 'Web');
+
+
+--Ejemplo 1: Vista de resumen de transacciones con nombre de cliente
+CREATE VIEW Vista_ResumenTransacciones AS
+SELECT 
+    t.TransaccionID,
+    c.Nombre,
+    t.Fecha,
+    t.Monto,
+    t.Tipo,
+    t.Canal
+FROM Transacciones t
+JOIN Clientes c ON t.ClienteID = c.ClienteID;
+
+--Puedes consultarla con:
+SELECT * FROM Vista_ResumenTransacciones;
+
+--Ejemplo 2: Vista de clasificación de clientes por total movido
+CREATE VIEW Vista_ClientesClasificados AS
+SELECT 
+    c.ClienteID,
+    c.Nombre,
+    SUM(t.Monto) AS TotalMovido,
+    CASE 
+        WHEN SUM(t.Monto) > 1000000 THEN 'Alto Valor'
+        WHEN SUM(t.Monto) BETWEEN 300000 AND 1000000 THEN 'Medio Valor'
+        ELSE 'Bajo Valor'
+    END AS Categoria
+FROM Clientes c
+JOIN Transacciones t ON c.ClienteID = t.ClienteID
+GROUP BY c.ClienteID, c.Nombre;
+--Luego puedes hacer:
+SELECT * FROM Vista_ClientesClasificados WHERE Categoria = 'Alto Valor';
+
+--Ejemplo 3: Vista solo con transacciones de tipo ‘Transferencia’
+CREATE VIEW Vista_Transferencias AS
+SELECT * 
+FROM Transacciones
+WHERE Tipo = 'Transferencia';
+
+--Ejemplo 4: Vista para clientes sin transacciones (LEFT JOIN)
+CREATE VIEW Vista_ClientesSinTransacciones AS
+SELECT c.ClienteID, c.Nombre
+FROM Clientes c
+LEFT JOIN Transacciones t ON c.ClienteID = t.ClienteID
+WHERE t.TransaccionID IS NULL;
+
+--Procedimiento almacenado para agregar información
+CREATE PROCEDURE InsertarCliente
+    @ClienteID INT,
+    @Nombre NVARCHAR(100),
+    @Correo NVARCHAR(100),
+    @Segmento NVARCHAR(50)
+AS
+BEGIN
+    INSERT INTO Clientes (ClienteID, Nombre, Correo, Segmento)
+    VALUES (@ClienteID, @Nombre, @Correo, @Segmento);
+END;
+
+--Ejecutando una inserción
+EXEC InsertarCliente 
+    @ClienteID = 5,
+    @Nombre = 'Lucía Ramírez',
+    @Correo = 'lucia.ramirez@email.com',
+    @Segmento = 'Frecuente';
+
+
+
+
