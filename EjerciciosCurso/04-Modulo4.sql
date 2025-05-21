@@ -111,4 +111,28 @@ EXEC InsertarCliente
 
 
 
+--Creacion de Tabla de Log
+CREATE TABLE LogCambiosClientes (
+    LogID INT IDENTITY(1,1) PRIMARY KEY,
+    ClienteID INT,
+    FechaCambio DATETIME,
+    Accion NVARCHAR(10)
+);
+
+CREATE TRIGGER trg_LogClientes
+ON Clientes
+AFTER INSERT, DELETE
+AS
+BEGIN
+    -- Insertados = nuevos registros
+    INSERT INTO LogCambiosClientes (ClienteID, FechaCambio, Accion)
+    SELECT ClienteID, GETDATE(), 'INSERT'
+    FROM inserted;
+
+    -- Eliminados = registros borrados
+    INSERT INTO LogCambiosClientes (ClienteID, FechaCambio, Accion)
+    SELECT ClienteID, GETDATE(), 'DELETE'
+    FROM deleted;
+END;
+
 
